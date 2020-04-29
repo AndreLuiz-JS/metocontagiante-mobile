@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, FlatList } from 'react-native';
 
 import api from '../../services/api';
 import normalizeDate from '../../services/normalizeDate';
-
+import Loading from '../../components/Loading';
 
 import { styles } from './styles';
 
@@ -17,6 +17,7 @@ export default function DevotionalScreen() {
         date: ''
     })
     const [ showVerses, setShowVerses ] = useState(true)
+    const [ loading, setLoading ] = useState(true);
     async function getDevotional() {
         try {
             const devotional = await api.get('/devotional');
@@ -26,7 +27,7 @@ export default function DevotionalScreen() {
             const date = normalizeDate(devotional.data.available_at);
             const { verses, verseContent } = await getVerses();
             setDevotionalContent({ title, verses, content, verseContent, date, hasDevotional });
-
+            setLoading(false);
             async function getVerses() {
                 const bibleIndexes = devotional.data.verses.split(';');
                 const verseContent = new Array(bibleIndexes.length);
@@ -47,6 +48,7 @@ export default function DevotionalScreen() {
         } catch (err) {
             console.log(err)
             setShowVerses(false);
+            setLoading(false);
             return { verses: [], verseContent: [] }
         }
     }
@@ -56,6 +58,7 @@ export default function DevotionalScreen() {
     useEffect(() => {
         getDevotional();
     }, [])
+    if (loading) return (<Loading message='carregando devocional' />)
     if (!devotionalContent.hasDevotional)
         return (
             <View style={styles.container}>
