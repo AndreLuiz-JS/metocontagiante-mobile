@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, TouchableHighlight } from 'react-native';
 
 import colors from '../../constants/Colors';
@@ -15,14 +15,10 @@ export default function Book({ navigation, route }) {
         navigation.navigate('Bible', newBookMark);
     }
 
-    useEffect(() => {
-        function centerOn() {
-            const index = listOfBooks.indexOf(bookMark.bookName);
-            const offset = 44 * index - 7 * 44;
-            flatListRef.scrollToOffset({ animated: true, offset });
-        }
-        if (flatListRef) setTimeout(centerOn, 1000);
-    }, [ flatListRef ])
+    function centerOn() {
+        const index = listOfBooks.indexOf(bookMark.bookName);
+        flatListRef.scrollToIndex({ animated: true, index, viewOffset: 100, viewPosition: 0 });
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,8 +43,10 @@ export default function Book({ navigation, route }) {
                             </Text>
                         </View>
                     </TouchableHighlight>
-                )
-                }
+                )}
+                getItemLayout={(data, index) => ({ length: 44, offset: 44 * index, index })}
+                initialNumToRender={listOfBooks.length}
+                onContentSizeChange={centerOn}
                 keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))}
             />
         </SafeAreaView >

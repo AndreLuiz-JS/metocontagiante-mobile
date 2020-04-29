@@ -1,6 +1,6 @@
 {
 	"expo": {
-		"name": "metocontagiante-mobile",
+		"name": "Metodista Contagiante",
 		"slug": "metocontagiante-mobile",
 		"platforms": ["ios", "android", "web"],
 		"version": "1.0.0",
