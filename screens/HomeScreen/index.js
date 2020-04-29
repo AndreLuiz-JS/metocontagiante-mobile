@@ -45,10 +45,13 @@ export default function HomeScreen() {
           <Text style={styles.text}>Agenda</Text>
         </View>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('Devotional')}
+        >
           <FontAwesome5 name="pray" size={40} color={colors.primary} />
           <Text style={styles.text}>Devocional</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.ico}>
           <FontAwesome5 name="users" size={40} color={colors.primary} />
