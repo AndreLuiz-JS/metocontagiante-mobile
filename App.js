@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather, FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,6 +10,8 @@ import useLinking from './navigation/useLinking';
 
 import HomeScreen from './screens/HomeScreen';
 import BibleScreen from './screens/BibleScreen';
+import BibleScreenChangeBook from './screens/BibleScreen/ChangeBook';
+import BibleScreenChangeChapter from './screens/BibleScreen/ChangeChapter';
 
 import colors from './constants/Colors';
 
@@ -33,6 +35,8 @@ export default function App(props) {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
+          ...Feather.font,
+          ...FontAwesome5.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         });
       } catch (e) {
@@ -57,6 +61,8 @@ export default function App(props) {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Bible" component={BibleScreen} />
+            <Stack.Screen name="ChangeBook" component={BibleScreenChangeBook} />
+            <Stack.Screen name="ChangeChapter" component={BibleScreenChangeChapter} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
