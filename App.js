@@ -14,6 +14,7 @@ import BibleScreenChangeBook from './screens/BibleScreen/ChangeBook';
 import BibleScreenChangeChapter from './screens/BibleScreen/ChangeChapter';
 import DevotionalScreen from './screens/Devotional';
 import PodcastScreen from './screens/Podcast';
+import MapScreen from './screens/Map';
 
 import colors from './constants/Colors';
 
@@ -67,6 +68,7 @@ export default function App(props) {
             <Stack.Screen name="ChangeChapter" component={BibleScreenChangeChapter} />
             <Stack.Screen name="Devotional" component={DevotionalScreen} />
             <Stack.Screen name="Podcast" component={PodcastScreen} />
+            <Stack.Screen name="Map" component={MapScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

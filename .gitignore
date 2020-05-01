@@ -10,6 +10,7 @@ npm-debug.*
 web-build/
 web-report/
 .vscode/*
+secret.js
 
 # macOS
 .DS_Store

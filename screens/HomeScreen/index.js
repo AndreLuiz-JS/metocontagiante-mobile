@@ -94,10 +94,13 @@ export default function HomeScreen() {
           <Text style={styles.text}>Quem Somos</Text>
         </View>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('Map')}
+        >
           <Feather name="map-pin" size={40} color={colors.primary} />
           <Text style={styles.text}>Como chegar</Text>
-        </View>
+        </TouchableOpacity>
 
       </View>
 
