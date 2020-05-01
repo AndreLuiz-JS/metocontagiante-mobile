@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
@@ -62,10 +62,13 @@ export default function HomeScreen() {
 
       <View style={styles.icons}>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('Podcast')}
+        >
           <FontAwesome5 name="podcast" size={40} color={colors.primary} />
           <Text style={styles.text}>Podcast</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.ico}>
           <FontAwesome5 name="thumbs-up" size={40} color={colors.primary} />

@@ -6,20 +6,6 @@ export default function normalizeDate(utcDate = new Date().toISOString()) {
         'quinta-feira',
         'sexta-feira',
         'sábado' ];
-    const monthOfYear = [
-        'janeiro',
-        'fevereiro',
-        'março',
-        'abril',
-        'maio',
-        'junho',
-        'julho',
-        'agosto',
-        'setembro',
-        'outubro',
-        'novembro',
-        'dezembro',
-    ];
     const date = new Date(utcDate);
     const now = new Date();
     const dateYearMonth = date.toISOString().substr(0, 7);
@@ -32,9 +18,9 @@ export default function normalizeDate(utcDate = new Date().toISOString()) {
     }
     const weekDay = daysOfWeek[ date.getDay() ];
     const day = date.getDate();
-    const month = monthOfYear[ date.getMonth() ];
+    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     const year = date.getFullYear();
-    return `${weekDay}, ${day} de ${month} de ${year} às ${hour}:${minutes}`;
+    return `${weekDay}, ${day}/${month}/${year} às ${hour}:${minutes}`;
 
     function addZero(i) {
         if (i < 10) {
