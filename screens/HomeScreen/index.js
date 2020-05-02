@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Text, TouchableOpacity, View, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
@@ -75,10 +75,13 @@ export default function HomeScreen() {
           <Text style={styles.text}>Redes Sociais</Text>
         </View>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => Linking.openURL('whatsapp://send?phone=5522992797679')}
+        >
           <FontAwesome5 name="whatsapp" size={40} color={colors.primary} />
           <Text style={styles.text}>Contato</Text>
-        </View>
+        </TouchableOpacity>
 
       </View>
 
