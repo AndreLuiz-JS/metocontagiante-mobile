@@ -87,10 +87,13 @@ export default function HomeScreen() {
 
       <View style={styles.icons}>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('PrayOrder')}
+        >
           <FontAwesome5 name="file-signature" size={40} color={colors.primary} />
           <Text style={styles.text}>Pedidos de Oração</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.ico}>
           <FontAwesome5 name="id-card" size={40} color={colors.primary} />
