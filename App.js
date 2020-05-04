@@ -8,15 +8,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import useLinking from './navigation/useLinking';
 
-import HomeScreen from './screens/HomeScreen';
-import BibleScreen from './screens/BibleScreen';
-import BibleScreenChangeBook from './screens/BibleScreen/ChangeBook';
-import BibleScreenChangeChapter from './screens/BibleScreen/ChangeChapter';
+import HomeScreen from './screens/Home';
+import BibleScreen from './screens/Bible';
+import BibleScreenChangeBook from './screens/Bible/ChangeBook';
+import BibleScreenChangeChapter from './screens/Bible/ChangeChapter';
 import DevotionalScreen from './screens/Devotional';
 import PodcastScreen from './screens/Podcast';
 import MapScreen from './screens/Map';
 import PrayOrderScreen from './screens/PrayOrder';
 import CalendarScreen from './screens/Calendar';
+
 
 import colors from './constants/Colors';
 
