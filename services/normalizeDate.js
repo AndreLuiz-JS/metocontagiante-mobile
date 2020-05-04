@@ -15,6 +15,7 @@ export default function normalizeDate(utcDate = new Date().toISOString()) {
     if (dateYearMonth === nowYearMonth) {
         if (date.getDate() === now.getDate()) return `hoje às ${hour}:${minutes}`;
         if (now.getDate() - date.getDate() === 1) return `ontem às ${hour}:${minutes}`;
+        if (now.getDate() - date.getDate() === -1) return `amanhã às ${hour}:${minutes}`;
     }
     const weekDay = daysOfWeek[ date.getDay() ];
     const day = date.getDate();

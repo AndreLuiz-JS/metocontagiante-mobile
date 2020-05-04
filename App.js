@@ -16,6 +16,7 @@ import DevotionalScreen from './screens/Devotional';
 import PodcastScreen from './screens/Podcast';
 import MapScreen from './screens/Map';
 import PrayOrderScreen from './screens/PrayOrder';
+import CalendarScreen from './screens/Calendar';
 
 import colors from './constants/Colors';
 
@@ -71,6 +72,7 @@ export default function App(props) {
             <Stack.Screen name="Podcast" component={PodcastScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="PrayOrder" component={PrayOrderScreen} />
+            <Stack.Screen name="Calendar" component={CalendarScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

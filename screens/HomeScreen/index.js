@@ -40,10 +40,13 @@ export default function HomeScreen() {
 
       <View style={styles.icons}>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('Calendar')}
+        >
           <Feather name="calendar" size={40} color={colors.primary} />
           <Text style={styles.text}>Agenda</Text>
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.ico}
