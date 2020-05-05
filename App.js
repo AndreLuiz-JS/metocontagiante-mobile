@@ -19,6 +19,7 @@ import PrayOrderScreen from './screens/PrayOrder';
 import CalendarScreen from './screens/Calendar';
 import PhotoScreen from './screens/Photo';
 import PhotoDetailScreen from './screens/Photo/Detail';
+import SocialMediaScreen from './screens/SocialMedia';
 
 import colors from './constants/Colors';
 
@@ -77,6 +78,7 @@ export default function App(props) {
             <Stack.Screen name="Calendar" component={CalendarScreen} />
             <Stack.Screen name="Photo" component={PhotoScreen} />
             <Stack.Screen name="PhotoDetail" component={PhotoDetailScreen} />
+            <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

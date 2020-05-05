@@ -76,10 +76,13 @@ export default function HomeScreen() {
           <Text style={styles.text}>Podcast</Text>
         </TouchableOpacity>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('SocialMedia')}
+        >
           <FontAwesome5 name="thumbs-up" size={40} color={colors.primary} />
           <Text style={styles.text}>Redes Sociais</Text>
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.ico}
