@@ -2,11 +2,12 @@
 	"expo": {
 		"name": "Metodista Contagiante",
 		"slug": "metocontagiante-mobile",
-		"platforms": ["ios", "android", "web"],
+		"platforms": ["ios", "android"],
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "myapp",
+		"scheme": "contagiante",
+		"primaryColor": "#000000",
 		"splash": {
 			"image": "./assets/images/splash.png",
 			"resizeMode": "cover",
