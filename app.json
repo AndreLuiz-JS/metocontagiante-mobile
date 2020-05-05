@@ -8,6 +8,7 @@
 		"icon": "./assets/images/icon.png",
 		"scheme": "contagiante",
 		"primaryColor": "#000000",
+		"privacy": "public",
 		"splash": {
 			"image": "./assets/images/splash.png",
 			"resizeMode": "cover",
@@ -19,6 +20,10 @@
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
 			"supportsTablet": true
+		},
+		"android": {
+			"package": "br.com.andresouzadev.metocontagiante",
+			"versionCode": 1
 		}
 	}
 }
