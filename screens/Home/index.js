@@ -31,10 +31,13 @@ export default function HomeScreen() {
           <Text style={styles.text}>Células</Text>
         </View>
 
-        <View style={styles.ico}>
+        <TouchableOpacity
+          style={styles.ico}
+          onPress={() => navigation.navigate('Photo')}
+        >
           <Feather name="camera" size={40} color={colors.primary} />
           <Text style={styles.text}>Fotos</Text>
-        </View>
+        </TouchableOpacity>
 
       </View>
 
