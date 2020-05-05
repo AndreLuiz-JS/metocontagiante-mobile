@@ -24,13 +24,13 @@ export const styles = StyleSheet.create({
     linkContainer: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        textAlign: 'left'
+        textAlign: 'left',
+        paddingVertical: 15,
     },
     links: {
         paddingHorizontal: 10,
         paddingVertical: 25,
         alignItems: 'center',
-        backgroundColor: colors.backgroundSecondary,
         borderRadius: 10,
         margin: 10
     },
