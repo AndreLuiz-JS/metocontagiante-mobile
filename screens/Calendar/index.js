@@ -25,7 +25,6 @@ export default function PrayOrder() {
 
                 setEvents(eventMap);
                 setLoading(false);
-                console.log(eventMap)
             } catch (err) {
                 console.log(err);
                 setLoading(false);
