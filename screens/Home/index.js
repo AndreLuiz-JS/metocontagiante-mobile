@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Text, TouchableOpacity, View, Linking } from 'react-native';
+import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
@@ -7,119 +7,106 @@ import { styles } from './styles';
 import colors from '../../constants/Colors';
 
 import background from '../../assets/images/bg.png';
+import logo from '../../assets/images/icon.png';
 
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const icons = [ {
+    route: 'Bible',
+    iconName: 'book',
+    iconType: 'Feather',
+    name: 'Bíblia'
+  },
+  {
+    route: 'Home',
+    iconName: 'users',
+    iconType: 'Feather',
+    name: 'Células'
+  },
+  {
+    route: 'Photo',
+    iconName: 'camera',
+    iconType: 'Feather',
+    name: 'Fotos'
+  },
+  {
+    route: 'Calendar',
+    iconName: 'calendar',
+    iconType: 'Feather',
+    name: 'Agenda'
+  },
+  {
+    route: 'Devotional',
+    iconName: 'pray',
+    iconType: 'FontAwesome5',
+    name: 'Devocional'
+  },
+  {
+    route: 'Home',
+    iconName: 'users',
+    iconType: 'FontAwesome5',
+    name: 'Pastores'
+  },
+  {
+    route: 'Podcast',
+    iconName: 'podcast',
+    iconType: 'FontAwesome5',
+    name: 'Podcast'
+  },
+  {
+    route: 'SocialMedia',
+    iconName: 'thumbs-up',
+    iconType: 'FontAwesome5',
+    name: 'Mídias Sociais'
+  },
+  {
+    openUrl: 'whatsapp://send?phone=5522992797679',
+    iconName: 'whatsapp',
+    iconType: 'FontAwesome5',
+    name: 'Contato'
+  },
+  {
+    route: 'PrayOrder',
+    iconName: 'file-signature',
+    iconType: 'FontAwesome5',
+    name: 'Pedido de Oração'
+  },
+  {
+    route: 'Home',
+    iconName: 'id-card',
+    iconType: 'FontAwesome5',
+    name: 'Quem Somos'
+  },
+  {
+    route: 'Map',
+    iconName: 'map-pin',
+    iconType: 'Feather',
+    name: 'Como Chegar'
+  }, ]
   return (
     <ImageBackground source={background} style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>METODISTA CONTAGIANTE</Text>
+        <Image source={logo} style={{ width: 150, height: 150 }} />
       </View>
-      <View style={styles.icons}>
+      <FlatList
+        contentContainerStyle={styles.icons}
+        numColumns={3}
+        data={icons}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            style={styles.ico}
+            onPress={item.route ? () => navigation.navigate(item.route) : () => Linking.openURL(item.openUrl)}
+          >
+            {item.iconType === 'Feather' && (<Feather name={item.iconName} size={40} color={colors.primary} />)}
+            {item.iconType === 'FontAwesome5' && (<FontAwesome5 name={item.iconName} size={40} color={colors.primary} />)}
+            <Text style={styles.text}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))}
+      />
 
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Bible')}
-        >
-          <Feather name="book" size={40} color={colors.primary} />
-          <Text style={styles.text}>Bíblia</Text>
-        </TouchableOpacity>
-
-        <View style={styles.ico}>
-          <Feather name="users" size={40} color={colors.primary} />
-          <Text style={styles.text}>Células</Text>
-        </View>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Photo')}
-        >
-          <Feather name="camera" size={40} color={colors.primary} />
-          <Text style={styles.text}>Fotos</Text>
-        </TouchableOpacity>
-
-      </View>
-
-      <View style={styles.icons}>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Calendar')}
-        >
-          <Feather name="calendar" size={40} color={colors.primary} />
-          <Text style={styles.text}>Agenda</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Devotional')}
-        >
-          <FontAwesome5 name="pray" size={40} color={colors.primary} />
-          <Text style={styles.text}>Devocional</Text>
-        </TouchableOpacity>
-
-        <View style={styles.ico}>
-          <FontAwesome5 name="users" size={40} color={colors.primary} />
-          <Text style={styles.text}>Pastores</Text>
-        </View>
-
-      </View>
-
-      <View style={styles.icons}>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Podcast')}
-        >
-          <FontAwesome5 name="podcast" size={40} color={colors.primary} />
-          <Text style={styles.text}>Podcast</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('SocialMedia')}
-        >
-          <FontAwesome5 name="thumbs-up" size={40} color={colors.primary} />
-          <Text style={styles.text}>Redes Sociais</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => Linking.openURL('whatsapp://send?phone=5522992797679')}
-        >
-          <FontAwesome5 name="whatsapp" size={40} color={colors.primary} />
-          <Text style={styles.text}>Contato</Text>
-        </TouchableOpacity>
-
-      </View>
-
-      <View style={styles.icons}>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('PrayOrder')}
-        >
-          <FontAwesome5 name="file-signature" size={40} color={colors.primary} />
-          <Text style={styles.text}>Pedidos de Oração</Text>
-        </TouchableOpacity>
-
-        <View style={styles.ico}>
-          <FontAwesome5 name="id-card" size={40} color={colors.primary} />
-          <Text style={styles.text}>Quem Somos</Text>
-        </View>
-
-        <TouchableOpacity
-          style={styles.ico}
-          onPress={() => navigation.navigate('Map')}
-        >
-          <Feather name="map-pin" size={40} color={colors.primary} />
-          <Text style={styles.text}>Como chegar</Text>
-        </TouchableOpacity>
-
-      </View>
-
-    </ImageBackground>
+    </ImageBackground >
   );
 }
 

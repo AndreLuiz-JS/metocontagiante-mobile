@@ -30,7 +30,6 @@ export const styles = StyleSheet.create({
     links: {
         paddingHorizontal: 10,
         paddingVertical: 25,
-        alignItems: 'center',
         borderRadius: 10,
         margin: 10
     },
@@ -56,12 +55,12 @@ export const styles = StyleSheet.create({
     },
     facebook: {
         width: 50,
-        height: 47,
+        height: 50,
         borderRadius: 5,
         backgroundColor: '#3b5998',
         color: 'white',
-        textAlign: 'right',
-        paddingTop: 3
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
     youtube: {
         width: 50,
@@ -72,7 +71,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center'
     },
-    twitter: {
+    goooglePodcast: {
         width: 50,
         height: 50,
         borderRadius: 5,

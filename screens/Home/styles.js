@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import colors from '../../constants/Colors';
 
@@ -6,8 +6,7 @@ import colors from '../../constants/Colors';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 24,
-        paddingTop: Constants.statusBarHeight + 20,
+        paddingTop: Constants.statusBarHeight,
         backgroundColor: colors.background,
         justifyContent: 'space-evenly'
 
@@ -16,24 +15,23 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    headerText: {
-        fontSize: 22,
-        color: colors.primary,
-        textAlign: 'center',
+        paddingVertical: 15,
     },
     icons: {
-        flexDirection: 'row',
+        width: Dimensions.get('screen').width,
         justifyContent: 'space-between',
-        padding: 20
+        alignContent: 'space-between',
+        alignItems: 'center',
+        minHeight: 200,
     },
     ico: {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor: colors.backgroundSecondary + 'aa',
-        width: 100,
-        height: 100,
+        width: Dimensions.get('window').width / 3 - 20,
+        height: Dimensions.get('window').width / 3 - 20,
         padding: 5,
+        margin: 5,
         borderRadius: 8
     },
     text: {
