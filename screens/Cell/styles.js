@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import colors from '../../constants/Colors';
-
+const screenWidth = Dimensions.get('screen').width;
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -33,14 +33,14 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 5,
         borderRadius: 10,
-        width: Dimensions.get('screen').width - 20,
+        width: screenWidth - 20,
         color: colors.text,
         fontSize: 16,
         textAlign: 'left'
     },
     cellImage: {
-        width: 120,
-        height: 176,
+        width: (screenWidth - 20) * 0.25,
+        height: (screenWidth - 20) * 0.25 / 0.5625,
         borderRadius: 10,
         margin: 5,
     },
