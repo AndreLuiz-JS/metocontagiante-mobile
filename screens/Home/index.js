@@ -19,7 +19,7 @@ export default function HomeScreen() {
     name: 'Bíblia'
   },
   {
-    route: 'Home',
+    route: 'Cell',
     iconName: 'users',
     iconType: 'Feather',
     name: 'Células'
