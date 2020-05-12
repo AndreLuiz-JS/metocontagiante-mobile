@@ -6,7 +6,7 @@ import Loading from '../../components/Loading';
 
 import { styles } from './styles';
 
-export default function PrayOrder() {
+export default function PrayOrderScreen() {
     const [ loading, setLoading ] = useState(true);
 
     return (

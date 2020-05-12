@@ -6,7 +6,7 @@ import Loading from '../../components/Loading';
 
 import { styles } from './styles';
 
-export default function PhotoScreen({ route }) {
+export default function PhotoDetailScreen({ route }) {
     const [ loading, setLoading ] = useState(true);
     const [ photoArray, setPhotoArray ] = useState([]);
     const { id, title } = route.params.album;

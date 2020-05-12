@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, Image } from 'react-native';
-import normalizeDate from '../../services/normalizeDate'
 
-import Loading from '../../components/Loading';
-import api from '../../services/api';
+import normalizeDate from '../../../services/normalizeDate'
+
+import Loading from '../../../components/Loading';
+import api from '../../../services/api';
 
 import { styles } from './styles';
 
-export default function PrayOrder() {
+export default function CalendarScreen() {
     const [ loading, setLoading ] = useState(true);
     const [ events, setEvents ] = useState([]);
 
@@ -37,8 +38,6 @@ export default function PrayOrder() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.events}>
-                <Text style={styles.headerTitle}>Agenda</Text>
-                <Text style={styles.headerSubTitle}>Metodista Contagiante</Text>
                 {events.length === 0 && (
                     <>
                         <Text style={styles.noEvent}>Nenhum evento na agenda</Text>
@@ -53,9 +52,9 @@ export default function PrayOrder() {
                                 <View style={styles.event}>
                                     {item.imgUrl && <Image style={styles.image} source={{ uri: item.imgUrl }} />}
                                     <View style={styles.textContainer}>
-                                        <Text style={styles.title}>{item.title}</Text>
-                                        <Text style={styles.description}>{item.description}</Text>
-                                        <Text style={styles.date}>{item.date}</Text>
+                                        {item.title && (<Text style={styles.title}>{item.title}</Text>)}
+                                        {item.description && (<Text style={styles.description}>{item.description}</Text>)}
+                                        {item.date && (<Text style={styles.date}>{item.date}</Text>)}
                                     </View>
                                 </View>
                             </View>

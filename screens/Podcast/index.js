@@ -9,7 +9,7 @@ import Loading from '../../components/Loading';
 
 import { styles } from './styles';
 
-export default function Podcast() {
+export default function PodcastScreen() {
     const [ podcasts, setPodcasts ] = useState([ { link: '', description: '' } ]);
     const [ currentPodcast, setCurrentPodcast ] = useState({ link: '', description: '' });
     const [ loading, setLoading ] = useState(true);

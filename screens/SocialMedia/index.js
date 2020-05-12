@@ -8,7 +8,7 @@ import { styles } from './styles';
 import instagram from '../../assets/images/instagram.png';
 import gpodcast from '../../assets/images/gpodcast.png';
 
-export default function SocialMedia() {
+export default function SocialMediaScreen() {
     const [ uri, setUri ] = useState('https://www.instagram.com/metodistacontagiante');
 
     return (

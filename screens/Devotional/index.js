@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList } from 'react-native';
+import React, { useState, useEffect, Fragment } from 'react';
+import { SafeAreaView, ScrollView, View, Text, FlatList } from 'react-native';
 
 import api from '../../services/api';
 import normalizeDate from '../../services/normalizeDate';
@@ -70,35 +70,35 @@ export default function DevotionalScreen() {
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>{devotionalContent.title}</Text>
             <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
-            <View style={styles.verseContainer}>
-                {showVerses && (<>
-                    <Text style={styles.verseTitle}>Versículos base: {devotionalContent.verses.join(', ')}</Text>
-                    <FlatList
-                        data={devotionalContent.verses}
-                        renderItem={({ item, index }) =>
-                            (<>
-                                <Text style={styles.verse}>{item}</Text>
-                                {
-                                    devotionalContent.verseContent[ index ].map((paragraph, paragraphIndex) => (
-                                        <Text style={styles.paragraph} key={paragraphIndex} >
-                                            {'\t\t'}
-                                            {paragraph.map((verse, verseIndex) => (
-                                                <Text style={styles.verseText} key={verseIndex} > {verse.verseText}</Text>
-                                            ))}
-                                        </Text>
-                                    ))
-                                }
-                            </>)
-                        }
-                        keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))} />
-                </>)}
-            </View>
-            <FlatList style={styles.devotionalContainer}
-                data={devotionalContent.content}
-                renderItem={({ item }) => (
-                    <Text style={item.startsWith('#') ? styles.title : styles.devotionalContent}>{item.startsWith('#') ? '' : '\t\t\t\t\t\t\t\t'}{item}</Text>
-                )}
-                keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))} />
+            <ScrollView style={styles.scroll}>
+                <View style={styles.verseContainer}>
+                    {showVerses && (
+                        <>
+                            <Text style={styles.verseTitle} key={devotionalContent.date}>Versículos base: {devotionalContent.verses.join(', ')}</Text>
+                            {devotionalContent.verses.map((item, index) =>
+                                (<Fragment key={Math.random() * Math.pow(5, index)}>
+                                    <Text style={styles.verse} key={Math.random() * Math.pow(10, index)}>{item}</Text>
+                                    {
+                                        devotionalContent.verseContent[ index ].map((paragraph, paragraphIndex) => (
+                                            <Text style={styles.paragraph} key={Math.random() * Math.pow(10, paragraphIndex)} >
+                                                {'\t\t'}
+                                                {paragraph.map((verse, verseIndex) => (
+                                                    <Text style={styles.verseText} key={Math.random() * Math.pow(10, verseIndex)} > {verse.verseText}</Text>
+                                                ))}
+                                            </Text>
+                                        ))
+                                    }
+                                </Fragment>)
+                            )}
+                        </>)}
+                </View>
+                <View style={styles.devotionalContainer}>
+                    {devotionalContent.content.map((item, index) => (
+                        <Text key={Math.random() * Math.pow(10, index)} style={(item.startsWith('#') || index === 0) ? styles.title : styles.devotionalContent}>{(item.startsWith('#') || index === 0) ? '' : '\t\t\t\t\t\t\t\t'}{item}</Text>
+                    ))}
+
+                </View>
+            </ScrollView>
         </SafeAreaView >
     )
 

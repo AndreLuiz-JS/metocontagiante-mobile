@@ -16,7 +16,7 @@ import DevotionalScreen from './screens/Devotional';
 import PodcastScreen from './screens/Podcast';
 import MapScreen from './screens/Map';
 import PrayOrderScreen from './screens/PrayOrder';
-import CalendarScreen from './screens/Calendar';
+import ScheduleScreen from './screens/Schedule';
 import PhotoScreen from './screens/Photo';
 import PhotoDetailScreen from './screens/Photo/Detail';
 import SocialMediaScreen from './screens/SocialMedia';
@@ -76,7 +76,7 @@ export default function App(props) {
             <Stack.Screen name="Podcast" component={PodcastScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="PrayOrder" component={PrayOrderScreen} />
-            <Stack.Screen name="Calendar" component={CalendarScreen} />
+            <Stack.Screen name="Schedule" component={ScheduleScreen} />
             <Stack.Screen name="Photo" component={PhotoScreen} />
             <Stack.Screen name="PhotoDetail" component={PhotoDetailScreen} />
             <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />

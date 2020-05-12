@@ -8,7 +8,7 @@ import { styles } from './styles';
 
 import { apiKeyGoogleMapsEmbed } from '../../secret';
 
-export default function Map() {
+export default function MapScreen() {
     const [ position, setPosition ] = useState({ lat: null, long: null });
     const [ geolocationAvailable, setGeolocationAvailable ] = useState(null);
     const [ googleMapsUrl, setGoogleMapsUrl ] = useState(`<iframe width="100%" height="100%" frameborder="0" style="border:0"

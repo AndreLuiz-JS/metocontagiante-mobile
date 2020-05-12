@@ -2,6 +2,13 @@ import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import colors from '../../constants/Colors';
 
+const iconPadding = 5;
+const iconMargin = 5;
+const headerPaddingVertical = 10;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const iconSize = screenWidth / 3 - (iconPadding * 2 + iconMargin * 2);
+const logoSize = screenHeight - (4 * iconSize) - (4 * (iconPadding * 2 + iconMargin * 2)) - headerPaddingVertical * 2;
 
 export const styles = StyleSheet.create({
     container: {
@@ -11,27 +18,30 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
 
     },
+    logo: {
+        width: logoSize,
+        height: logoSize,
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 15,
+        paddingVertical: headerPaddingVertical,
     },
     icons: {
-        width: Dimensions.get('screen').width,
+        width: screenWidth,
         justifyContent: 'space-between',
         alignContent: 'space-between',
         alignItems: 'center',
-        minHeight: 200,
     },
     ico: {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor: colors.backgroundSecondary + 'aa',
-        width: Dimensions.get('window').width / 3 - 20,
-        height: Dimensions.get('window').width / 3 - 20,
-        padding: 5,
-        margin: 5,
+        width: iconSize,
+        height: iconSize,
+        padding: iconPadding,
+        margin: iconMargin,
         borderRadius: 8
     },
     text: {

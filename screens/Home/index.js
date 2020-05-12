@@ -31,7 +31,7 @@ export default function HomeScreen() {
     name: 'Fotos'
   },
   {
-    route: 'Calendar',
+    route: 'Schedule',
     iconName: 'calendar',
     iconType: 'Feather',
     name: 'Agenda'
@@ -87,7 +87,7 @@ export default function HomeScreen() {
   return (
     <ImageBackground source={background} style={styles.container}>
       <View style={styles.header}>
-        <Image source={logo} style={{ width: 150, height: 150 }} />
+        <Image source={logo} style={styles.logo} />
       </View>
       <FlatList
         contentContainerStyle={styles.icons}

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import colors from '../../constants/Colors';
 
@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: Constants.statusBarHeight,
         backgroundColor: colors.background,
-        padding: 10,
     },
     title: {
         fontSize: 20,
@@ -19,17 +18,21 @@ export const styles = StyleSheet.create({
     },
     publishedAt: {
         fontSize: 10,
-        width: '100%',
+        width: '90%',
         alignItems: 'flex-end',
         textAlign: 'right',
-        color: colors.secondary
+        color: colors.secondary,
+        marginVertical: 5
+    },
+    scroll: {
+        flex: 1,
+        paddingHorizontal: 10
     },
     verseContainer: {
         backgroundColor: colors.backgroundSecondary,
         padding: 10,
         marginTop: 5,
         borderRadius: 10,
-        maxHeight: 200
     },
     verseTitle: {
         fontSize: 10,
@@ -50,6 +53,7 @@ export const styles = StyleSheet.create({
         marginTop: 5,
     },
     devotionalContent: {
+        flex: 1,
         color: colors.text,
         fontSize: 16,
         textAlign: 'justify'

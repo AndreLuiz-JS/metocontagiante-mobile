@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../constants/Colors';
+import colors from '../../../constants/Colors';
 import constants from 'expo-constants';
 
 export const styles = StyleSheet.create({
@@ -51,18 +51,20 @@ export const styles = StyleSheet.create({
     },
     title: {
         color: colors.primary,
-        paddingTop: 20,
+        marginTop: 20,
         fontSize: 19,
         textAlign: 'center'
     },
     description: {
         color: colors.secondary,
         textAlign: 'justify',
-        padding: 20
+        marginTop: 10,
+        marginHorizontal: 20,
     },
     date: {
         color: colors.primary,
         textAlign: 'center',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        marginTop: 10,
     }
 })
