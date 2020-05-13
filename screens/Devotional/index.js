@@ -74,7 +74,7 @@ export default function DevotionalScreen() {
                 <View style={styles.verseContainer}>
                     {showVerses && (
                         <>
-                            <Text style={styles.verseTitle} key={devotionalContent.date}>Versículos base: {devotionalContent.verses.join(', ')}</Text>
+                            <Text style={styles.verseTitle} key={devotionalContent.date}>Versículos base: </Text>
                             {devotionalContent.verses.map((item, index) =>
                                 (<Fragment key={Math.random() * Math.pow(5, index)}>
                                     <Text style={styles.verse} key={Math.random() * Math.pow(10, index)}>{item}</Text>
