@@ -21,19 +21,19 @@ export default function CellScreen() {
     } ])
     const [ loading, setLoading ] = useState(true);
     const weekdays = [ 'domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado' ];
-    async function getcell() {
-        try {
-            const response = await api.get('/cells');
-            setCellContent(response.data)
-            setLoading(false);
-        } catch (err) {
-            console.log(err)
-            setLoading(false);
-        }
-    }
 
 
     useEffect(() => {
+        async function getcell() {
+            try {
+                const response = await api.get('/cells');
+                setCellContent(response.data)
+                setLoading(false);
+            } catch (err) {
+                console.log(err)
+                setLoading(false);
+            }
+        }
         getcell();
     }, [])
 

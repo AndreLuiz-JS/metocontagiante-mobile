@@ -50,7 +50,7 @@ export default function HomeScreen() {
     onLine: true
   },
   {
-    route: 'Home',
+    route: 'Shepherds',
     iconName: 'users',
     iconType: 'FontAwesome5',
     name: 'Pastores',
@@ -85,7 +85,7 @@ export default function HomeScreen() {
     onLine: true
   },
   {
-    route: 'Home',
+    route: 'AboutUs',
     iconName: 'id-card',
     iconType: 'FontAwesome5',
     name: 'Quem Somos',

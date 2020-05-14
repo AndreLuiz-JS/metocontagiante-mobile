@@ -68,9 +68,11 @@ export default function DevotionalScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>{devotionalContent.title}</Text>
-            <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
+            <Text style={styles.title}>Devocional</Text>
+            <Text style={styles.subTitle}>Metodista Contagiante</Text>
             <ScrollView style={styles.scroll}>
+                <Text style={styles.title}>{devotionalContent.title}</Text>
+                <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
                 <View style={styles.verseContainer}>
                     {showVerses && (
                         <>

@@ -55,8 +55,9 @@ export default function PodcastScreen() {
     if (loading) return (<Loading message='carregando' />)
     return (
         <SafeAreaView style={styles.container}>
+            <Text style={styles.title}>Podcast</Text>
+            <Text style={styles.subTitle}>Metodista Contagiante</Text>
             <View style={styles.header}>
-                <Text style={styles.title}>Podcast</Text>
                 <Text style={styles.headerAuthor} >Gravado por {currentPodcast.author}</Text>
                 <Text style={styles.headerPubDate} >Publicado: {currentPodcast.date}</Text>
                 <View style={styles.podcast}>

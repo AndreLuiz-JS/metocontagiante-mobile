@@ -1,6 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../constants/Colors';
 import constants from 'expo-constants';
+
+const iconSize = 50;
+const iconRadius = 25;
 
 export const styles = StyleSheet.create({
     container: {
@@ -11,9 +14,8 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         color: colors.primary,
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        marginTop: 10
+        paddingTop: 10,
+        textAlign: 'center'
     },
     subTitle: {
         fontSize: 15,
@@ -37,7 +39,8 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.text,
         textTransform: 'capitalize',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        width: Dimensions.get('screen').width - iconSize - 40,
     },
     box: {
         flex: 1
@@ -49,41 +52,41 @@ export const styles = StyleSheet.create({
         width: 180,
     },
     instagram: {
-        width: 50,
-        height: 50,
-        borderRadius: 5
+        width: iconSize,
+        height: iconSize,
+        borderRadius: iconRadius
     },
     facebook: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
+        width: iconSize,
+        height: iconSize,
+        borderRadius: iconRadius,
         backgroundColor: '#3b5998',
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center',
     },
     youtube: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
+        width: iconSize,
+        height: iconSize,
+        borderRadius: iconRadius,
         backgroundColor: '#c4302b',
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center'
     },
     goooglePodcast: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
+        width: iconSize,
+        height: iconSize,
+        borderRadius: iconRadius,
         backgroundColor: '#00aced',
         color: 'white',
         textAlign: 'center',
         textAlignVertical: 'center'
     },
     spotify: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
+        width: iconSize,
+        height: iconSize,
+        borderRadius: iconRadius,
         backgroundColor: '#1DB954',
         color: 'white',
         textAlign: 'center',

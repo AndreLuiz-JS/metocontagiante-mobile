@@ -18,11 +18,16 @@ export const styles = StyleSheet.create({
         borderRadius: 10
     },
     title: {
-        fontSize: 18,
+        fontSize: 20,
         color: colors.primary,
+        paddingTop: 10,
+        textAlign: 'center'
+    },
+    subTitle: {
+        fontSize: 15,
+        color: colors.secondary,
         textTransform: 'uppercase',
-        textAlign: 'center',
-        paddingBottom: 10,
+        textAlign: 'center'
     },
     headerAuthor: {
         fontSize: 16,

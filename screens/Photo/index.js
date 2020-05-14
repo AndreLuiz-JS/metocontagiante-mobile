@@ -32,6 +32,7 @@ export default function PhotoScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
             {loading && (<Loading message="carregando" />)}
             <Text style={styles.title}> Galeria de Fotos </Text>
+            <Text style={styles.subTitle}> Metodista Contagiante </Text>
             <View style={styles.albumList}>
                 <FlatList
                     style={{ flex: 1, width: '100%' }}

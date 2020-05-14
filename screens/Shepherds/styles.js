@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background,
         marginTop: constants.statusBarHeight,
+        padding: 0
     },
     title: {
         fontSize: 20,
@@ -20,26 +21,4 @@ export const styles = StyleSheet.create({
         textTransform: 'uppercase',
         textAlign: 'center'
     },
-    map: {
-        flex: 1,
-        marginTop: 10,
-    },
-    footer: {
-        padding: 10,
-        alignItems: 'center',
-    },
-    button: {
-        backgroundColor: colors.effect + 'dd',
-        padding: 5,
-        borderRadius: 10,
-        marginTop: 10,
-        width: '100%',
-        maxWidth: 250,
-        borderWidth: 2,
-        borderColor: colors.effect,
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: colors.background,
-    }
 })

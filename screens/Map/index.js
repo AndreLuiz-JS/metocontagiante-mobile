@@ -44,17 +44,19 @@ src="https://www.google.com/maps/embed/v1/directions?zoom=15&center=${lat},${lon
     if (!position.lat && geolocationAvailable === null) return (<Loading message="aguardando localização" />)
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => Linking.openURL(routeLink)}>
-                    <Text style={styles.title}>Abrir {Platform.OS === 'ios' && 'Apple Maps'}{Platform.OS === 'android' && 'Google Maps'}</Text>
-                </TouchableOpacity>
-            </View>
+            <Text style={styles.title}>Como Chegar</Text>
+            <Text style={styles.subTitle}>Metodista Contagiante</Text>
             <View style={styles.map}>
                 <WebView
                     scalesPageToFit={false}
                     source={{
                         html: googleMapsUrl
                     }} />
+            </View>
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.button} onPress={() => Linking.openURL(routeLink)}>
+                    <Text style={styles.buttonText}>navegar com {Platform.OS === 'ios' && 'Apple Maps'}{Platform.OS === 'android' && 'Google Maps'}</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )

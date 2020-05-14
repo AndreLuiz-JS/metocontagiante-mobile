@@ -14,11 +14,15 @@ export const styles = StyleSheet.create({
         color: colors.primary,
         paddingTop: 10,
         textAlign: 'center'
-
+    },
+    subTitle: {
+        fontSize: 15,
+        color: colors.secondary,
+        textTransform: 'uppercase',
+        textAlign: 'center'
     },
     publishedAt: {
         fontSize: 10,
-        width: '90%',
         alignItems: 'flex-end',
         textAlign: 'right',
         color: colors.secondary,
@@ -26,6 +30,7 @@ export const styles = StyleSheet.create({
     },
     scroll: {
         flex: 1,
+        marginTop: 5,
         paddingHorizontal: 10
     },
     verseContainer: {

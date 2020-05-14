@@ -12,10 +12,14 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         color: colors.primary,
-        paddingTop: 15,
-        justifyContent: 'center',
-        textAlign: 'center',
+        paddingTop: 10,
+        textAlign: 'center'
+    },
+    subTitle: {
+        fontSize: 15,
+        color: colors.secondary,
         textTransform: 'uppercase',
+        textAlign: 'center'
     },
     albumList: {
         flex: 1,

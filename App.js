@@ -21,6 +21,8 @@ import PhotoScreen from './screens/Photo';
 import PhotoDetailScreen from './screens/Photo/Detail';
 import SocialMediaScreen from './screens/SocialMedia';
 import CellScreen from './screens/Cell';
+import ShepherdsScreen from './screens/Shepherds';
+import AboutUsScreen from './screens/AboutUs';
 
 import colors from './constants/Colors';
 
@@ -81,6 +83,8 @@ export default function App(props) {
             <Stack.Screen name="PhotoDetail" component={PhotoDetailScreen} />
             <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />
             <Stack.Screen name="Cell" component={CellScreen} />
+            <Stack.Screen name="Shepherds" component={ShepherdsScreen} />
+            <Stack.Screen name="AboutUs" component={AboutUsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
