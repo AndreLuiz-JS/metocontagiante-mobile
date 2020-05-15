@@ -40,4 +40,10 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         color: colors.primary,
     },
+    section: {
+        backgroundColor: colors.backgroundSecondary,
+        margin: 10,
+        borderRadius: 10,
+        paddingBottom: 10,
+    }
 })

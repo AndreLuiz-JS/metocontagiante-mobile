@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, SafeAreaView, Text, Image } from 'react-native';
+import { View, ScrollView, SafeAreaView, Text, Image } from 'react-native';
 
 import { styles } from './styles';
 import brand from '../../assets/images/brand.png'
@@ -19,6 +19,13 @@ export default function AboutUs() {
 
                 <Text style={styles.text}>Venha nos fazer uma visita!</Text>
                 <Text style={styles.text}>Esperamos por você e sua família!!</Text>
+                <View style={styles.section}>
+                    <Text style={styles.title}>Cultos</Text>
+                    <Text style={styles.subTitle}>Domingo às 19h</Text>
+                    <Text style={styles.subTitle}>Terça às 20h</Text>
+                    <Text style={styles.title}>Escola de Maturidade</Text>
+                    <Text style={styles.subTitle}>Domingo às 10h</Text>
+                </View>
             </ScrollView>
         </SafeAreaView>
     )
