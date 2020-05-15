@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: logoSize + headerPadding * 2,
-        marginBottom: headerPadding / 2,
+        marginBottom: headerPadding,
     },
     icons: {
         width: screenWidth,
