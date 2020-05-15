@@ -2,6 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import colors from '../../constants/Colors';
 
+const screenWidth = Dimensions.get('screen').width;
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -20,6 +22,27 @@ export const styles = StyleSheet.create({
         color: colors.secondary,
         textTransform: 'uppercase',
         textAlign: 'center'
+    },
+    shareButton: {
+        position: 'absolute',
+        right: 20,
+        top: 20,
+    },
+    icon: {
+        color: colors.primary,
+        backgroundColor: colors.tintColor + 'aa',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        textAlign: 'center',
+        textAlignVertical: 'center'
+    },
+    picker: {
+        textAlign: 'center',
+        alignItems: "center",
+        width: screenWidth,
+        color: colors.primary,
+        fontSize: 20,
     },
     publishedAt: {
         fontSize: 10,
@@ -63,4 +86,5 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'justify'
     },
+
 })

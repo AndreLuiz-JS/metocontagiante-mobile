@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { SafeAreaView, ScrollView, View, Text, FlatList } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, Picker, Share, TouchableOpacity } from 'react-native';
+
+import { FontAwesome5 } from '@expo/vector-icons'
 
 import api from '../../services/api';
 import normalizeDate from '../../services/normalizeDate';
@@ -8,28 +10,29 @@ import Loading from '../../components/Loading';
 import { styles } from './styles';
 
 export default function DevotionalScreen() {
-
     const [ devotionalContent, setDevotionalContent ] = useState({
+        id: 0,
         title: '',
         verses: [],
         content: [],
         verseContent: [],
         date: ''
     })
+    const [ devotionalContentArray, setDevotionalContentArray ] = useState([ devotionalContent ]);
     const [ showVerses, setShowVerses ] = useState(true)
     const [ loading, setLoading ] = useState(true);
-    async function getDevotional() {
+
+    async function getDevotionalData(devotional) {
         try {
-            const devotional = await api.get('/devotional');
-            const title = devotional.data.title;
-            const content = devotional.data.content ? devotional.data.content.split(/(?:\r\n|\r|\n)/g) : false;
+            const { id, title } = devotional;
+            const content = devotional.content ? devotional.content.split(/(?:\r\n|\r|\n)/g) : false;
             const hasDevotional = content ? true : false;
-            const date = normalizeDate(devotional.data.available_at);
+            const date = normalizeDate(devotional.available_at);
             const { verses, verseContent } = await getVerses();
-            setDevotionalContent({ title, verses, content, verseContent, date, hasDevotional });
+            setDevotionalContent({ id, title, verses, content, verseContent, date, hasDevotional });
             setLoading(false);
             async function getVerses() {
-                const bibleIndexes = devotional.data.verses.split(';');
+                const bibleIndexes = devotional.verses.split(';');
                 const verseContent = new Array(bibleIndexes.length);
                 const verses = new Array(bibleIndexes.length);
                 for (let i = 0; i < bibleIndexes.length; i++) {
@@ -53,11 +56,43 @@ export default function DevotionalScreen() {
         }
     }
 
-
-
     useEffect(() => {
-        getDevotional();
+        async function fetchData() {
+            try {
+                const { data: devotionals } = await api.get('/devotional');
+                setDevotionalContentArray(devotionals);
+                getDevotionalData(devotionals[ 0 ]);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchData();
     }, [])
+
+    async function handleShareContent() {
+        const verse = devotionalContent.verses.map((item, index) => {
+            const verseTitle = '_[' + item + ']_';
+            const verseText = devotionalContent.verseContent[ index ]
+                .map(paragraph => paragraph.map(verse => verse.verseText + '\n').join('\n')).join('\n');
+            return verseTitle + '\n\n' + verseText
+        }).join('\n');
+        const message = '*#DevocionalContagiante*\n\n\n' + verse + '\n\n' + '```_________________________```' + '\n\n\n' + devotionalContent.content.join('\n\n');
+        try {
+            const result = await Share.share({ message });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
     if (loading) return (<Loading message='carregando devocional' />)
     if (!devotionalContent.hasDevotional)
         return (
@@ -68,11 +103,24 @@ export default function DevotionalScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <TouchableOpacity style={styles.shareButton} onPress={handleShareContent} title="compartilhar">
+                <FontAwesome5 style={styles.icon} name="share-alt" size={20} />
+            </TouchableOpacity>
             <Text style={styles.title}>Devocional</Text>
             <Text style={styles.subTitle}>Metodista Contagiante</Text>
+            <Picker
+                selectedValue={devotionalContent.id}
+                style={styles.picker}
+                onValueChange={(itemValue, itemIndex) => getDevotionalData(devotionalContentArray.find(item => item.id === itemValue))}
+                itemStyle={styles.title}
+                mode='dropdown'
+            >
+                {devotionalContentArray.map((item, index) => (
+                    <Picker.Item label={item.title} value={item.id} key={item.id} />
+                ))}
+            </Picker>
+            <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
             <ScrollView style={styles.scroll}>
-                <Text style={styles.title}>{devotionalContent.title}</Text>
-                <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
                 <View style={styles.verseContainer}>
                     {showVerses && (
                         <>
