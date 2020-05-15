@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     },
     headerTitle: {
         color: colors.primary,
-        fontSize: 17,
+        fontSize: 15,
         textAlign: 'center'
     },
     headerSubTitle: {
@@ -21,16 +21,16 @@ export const styles = StyleSheet.create({
         marginTop: 5,
     },
     topBar: {
+        marginTop: 20,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
+        justifyContent: 'space-around',
     },
     button: {
         backgroundColor: colors.backgroundSecondary,
         paddingVertical: 10,
         borderRadius: 10,
-        marginTop: 10,
-        width: 150
+        width: 120,
+        justifyContent: 'center'
     },
     buttonSelected: {
         backgroundColor: colors.effect + 'aa',
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 2,
         borderColor: colors.effect,
-        marginTop: 10,
-        width: 150,
+        width: 120,
+        justifyContent: 'center'
     }
 })

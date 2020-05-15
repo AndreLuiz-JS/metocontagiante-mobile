@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 import { styles } from './styles';
 
 export default function PhotoDetailScreen({ route }) {
-    const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState({ status: true, message: 'carregando' });
     const [ photoArray, setPhotoArray ] = useState([]);
     const { id, title } = route.params.album;
     const windowWidth = Dimensions.get('window').width;
@@ -24,17 +24,18 @@ export default function PhotoDetailScreen({ route }) {
                     photos.push({ baseUrl, width: windowWidth - 20, height: imgHeight })
                 });
                 setPhotoArray(photos);
+                setLoading({ status: false });
             } catch (err) {
                 console.log(err);
-            } finally {
-                setLoading(false);
+                setLoading({ status: false });
             }
         }
         fetchData();
     }, [])
+
     return (
         <SafeAreaView style={styles.container}>
-            {loading && (<Loading message="carregando" />)}
+            {loading.status && (<Loading message={loading.message} />)}
             <Text style={styles.title}> {title} </Text>
             <View style={styles.albumList}>
                 <FlatList

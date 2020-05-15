@@ -4,11 +4,11 @@ import colors from '../../constants/Colors';
 
 const iconPadding = 5;
 const iconMargin = 5;
-const headerPaddingVertical = 10;
+const headerPadding = 10;
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const iconSize = screenWidth / 3 - (iconPadding * 2 + iconMargin * 2);
-const logoSize = screenHeight - (4 * iconSize) - (4 * (iconPadding * 2 + iconMargin * 2)) - headerPaddingVertical * 2;
+const logoSize = screenHeight - (4 * iconSize) - (4 * (iconPadding * 2 + iconMargin * 2)) - headerPadding * 2;
 
 export const styles = StyleSheet.create({
     container: {
@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: headerPaddingVertical,
+        height: logoSize + headerPadding * 2,
+        marginBottom: headerPadding / 2,
     },
     icons: {
         width: screenWidth,
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
         height: iconSize,
         padding: iconPadding,
         margin: iconMargin,
-        borderRadius: 8
+        borderRadius: 8,
     },
     text: {
         color: colors.text,

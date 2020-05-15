@@ -1,19 +1,25 @@
 import React from 'react';
-import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert } from 'react-native';
+import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
-import { styles } from './styles';
 import colors from '../../constants/Colors';
+
+import Carousel from '../../components/Carousel';
+
+import api from '../../services/api';
 
 import background from '../../assets/images/bg.png';
 import logo from '../../assets/images/icon.png';
 
+import { styles } from './styles';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const netInfo = useNetInfo();
+  const [ images, setImages ] = React.useState([]);
+
   const icons = [ {
     route: 'Bible',
     iconName: 'book',
@@ -98,10 +104,27 @@ export default function HomeScreen() {
     name: 'Como Chegar',
     onLine: true
   }, ]
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await api.get('/carousel');
+        setImages(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if (netInfo.isConnected && images.length === 0) fetchData();
+
+  }, [ netInfo.isConnected ])
+
   return (
     <ImageBackground source={background} style={styles.container}>
       <View style={styles.header}>
-        <Image source={logo} style={styles.logo} />
+        {images.length === 0 && (<Image source={logo} style={styles.logo} />)}
+        {images.length > 0 && (<Carousel
+          images={images.map(img => { return { source: img.base64 } })}
+        />)}
       </View>
       <FlatList
         contentContainerStyle={styles.icons}
@@ -112,8 +135,8 @@ export default function HomeScreen() {
             style={styles.ico}
             onPress={() => handlePressPageIcon(item)}
           >
-            {item.iconType === 'Feather' && (<Feather name={item.iconName} size={40} color={colors.primary} />)}
-            {item.iconType === 'FontAwesome5' && (<FontAwesome5 name={item.iconName} size={40} color={colors.primary} />)}
+            {item.iconType === 'Feather' && (<Feather name={item.iconName} size={40} color={colors.tintColor} />)}
+            {item.iconType === 'FontAwesome5' && (<FontAwesome5 name={item.iconName} size={40} color={colors.tintColor} />)}
             <Text style={styles.text}>{item.name}</Text>
           </TouchableOpacity>
         )}
