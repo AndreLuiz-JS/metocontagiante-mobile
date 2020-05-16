@@ -20,7 +20,7 @@ export default function CalendarScreen() {
                     const title = event.summary ? event.summary : null;
                     const description = event.description ? event.description.replace(/<br>/g, '\n\t\t\t\t').replace(/<[^>]*>/g, '').replace(/&[^;]*;/g, '').trim() : null;
                     const imgUrl = event.attachments ? 'https://drive.google.com/uc?export=view&id=' + event.attachments[ 0 ].fileId : null;
-                    const date = normalizeDate(event.start.dateTime);
+                    const date = normalizeDate(event.start.dateTime || event.start.date);
                     return { title, description, imgUrl, date }
                 })
 

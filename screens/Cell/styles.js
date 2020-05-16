@@ -31,30 +31,29 @@ export const styles = StyleSheet.create({
     },
     cellContent: {
         flexDirection: 'row',
-        padding: 5,
+        alignItems: 'flex-start',
         borderRadius: 10,
         width: screenWidth - 20,
         color: colors.text,
         fontSize: 16,
-        textAlign: 'left'
+        textAlign: 'left',
+        padding: 10,
     },
     cellImage: {
         width: (screenWidth - 20) * 0.25,
         height: (screenWidth - 20) * 0.25 / 0.5625,
         borderRadius: 10,
-        margin: 5,
+        marginBottom: 15,
     },
     cellInfoContainer: {
         flex: 1,
         justifyContent: 'center',
         marginLeft: 10,
-        marginBottom: 10,
     },
     cellInfoItem: {
         color: colors.secondary,
     },
     cellName: {
-        paddingTop: 10,
         color: colors.primary,
         textAlign: 'center',
         fontSize: 20,

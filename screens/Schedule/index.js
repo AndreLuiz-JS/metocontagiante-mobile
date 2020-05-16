@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Text } from 'react-native';
+
 import Calendar from './Calendar';
 import Adverts from './Adverts';
 

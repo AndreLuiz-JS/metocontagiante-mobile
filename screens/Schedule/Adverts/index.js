@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, AsyncStorage } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 import Loading from '../../../components/Loading';
 import api from '../../../services/api';
 
-import PDFReader from 'rn-pdf-reader-js';
+import PDFViewer from 'rn-pdf-reader-js';
 
 import { styles } from './styles';
 
@@ -43,14 +44,19 @@ export default function AdvertsScreen() {
     }, [])
 
     if (loading) return (<Loading message="carregando" />);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.adverts}>
-                {adverts && (<PDFReader
+                {adverts && (<PDFViewer
                     source={{
+                        uri: adverts,
                         base64: adverts,
+                        cache: true
                     }}
+
                 />)}
+
             </View>
         </SafeAreaView>
     )

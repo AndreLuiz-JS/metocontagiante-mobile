@@ -144,7 +144,7 @@ export default function DevotionalScreen() {
                 </View>
                 <View style={styles.devotionalContainer}>
                     {devotionalContent.content.map((item, index) => (
-                        <Text key={Math.random() * Math.pow(10, index)} style={(item.startsWith('#') || index === 0) ? styles.title : styles.devotionalContent}>{(item.startsWith('#') || index === 0) ? '' : '\t\t\t\t\t\t\t\t'}{item}</Text>
+                        <Text key={Math.random() * Math.pow(10, index)} style={(item.startsWith('#')) ? styles.title : styles.devotionalContent}>{(item.startsWith('#')) ? '' : '\t\t\t\t\t\t\t\t'}{item}</Text>
                     ))}
 
                 </View>
