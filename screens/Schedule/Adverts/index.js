@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, AsyncStorage } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { SafeAreaView, View, AsyncStorage, Dimensions } from 'react-native';
 
 import Loading from '../../../components/Loading';
 import api from '../../../services/api';
@@ -12,6 +11,7 @@ import { styles } from './styles';
 export default function AdvertsScreen() {
     const [ loading, setLoading ] = useState(true);
     const [ adverts, setAdverts ] = useState();
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -54,7 +54,6 @@ export default function AdvertsScreen() {
                         base64: adverts,
                         cache: true
                     }}
-
                 />)}
 
             </View>
