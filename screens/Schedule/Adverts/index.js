@@ -1,62 +1,91 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, AsyncStorage, Dimensions } from 'react-native';
+import { SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
+import { PinchGestureHandler, PanGestureHandler } from 'react-native-gesture-handler';
 
-import Loading from '../../../components/Loading';
-import api from '../../../services/api';
-
-import PDFViewer from 'rn-pdf-reader-js';
 
 import { styles } from './styles';
 
 export default function AdvertsScreen() {
-    const [ loading, setLoading ] = useState(true);
-    const [ adverts, setAdverts ] = useState();
+    const [ imgSize, setImgSize ] = useState({ width: 0, height: 0, scale: 1, lastEventScale: 0 })
+    const [ horizontalScrollViewNode, setHorizontalScrollViewNode ] = useState();
+    const [ verticalScrollViewNode, setVerticalScrollViewNode ] = useState();
+    const [ scrollOffset, setScrollOffset ] = useState({ x: 0, y: 0 })
+    const imgUri = 'https://www.dropbox.com/s/3ih2ns78c39s4oo/advert.jpg?dl=1';
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await api.get('/advert');
-                const { pdf, mdate } = response.data;
-                const base64url = 'data:application/pdf;base64,' + pdf;
-                AsyncStorage.setItem('pdf', JSON.stringify({ base64url, date: mdate }));
-                setAdverts(base64url);
-                setLoading(false);
-            } catch (err) {
-                console.log(err);
-                setLoading(false);
-            }
-        }
-
-        async function fetchLocalData() {
-            try {
-                setLoading(true);
-                const { base64url, date } = AsyncStorage.getItem('pdf');
-                setAdverts(base64url);
-                const timeResponse = await api.get('/advert/time');
-                const serverDate = timeResponse.data.mtime;
-                if (date !== serverDate) fetchData()
-                else setLoading(false);
-            } catch (err) {
-                fetchData();
-            }
-        }
-        fetchLocalData();
+        Image.getSize(imgUri, (w, h) => {
+            const width = Dimensions.get('screen').width;
+            const height = Dimensions.get('screen').width / w * h;
+            setImgSize({ ...imgSize, width, height })
+        })
     }, [])
 
-    if (loading) return (<Loading message="carregando" />);
+
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.adverts}>
-                {adverts && (<PDFViewer
-                    source={{
-                        uri: adverts,
-                        base64: adverts,
-                        cache: true
+            <PinchGestureHandler
+                onGestureEvent={e => {
+                    const { scale: eventScale, focalX: x, focalY: y } = e.nativeEvent;
+                    const { scale: imgScale, lastEventScale } = imgSize;
+                    const newScale = (eventScale < 1) ? imgScale - Math.abs(lastEventScale - eventScale) : imgScale + eventScale - lastEventScale;
+                    if (newScale > 1 && newScale < 2.5) {
+                        setImgSize({ ...imgSize, scale: newScale, lastEventScale: eventScale });
+                        horizontalScrollViewNode.scrollTo({ x, y, animated: false });
+                        verticalScrollViewNode.scrollTo({ x, y, animated: false });
+                    }
+                }}
+                onHandlerStateChange={e => {
+                    if (e.nativeEvent.state === 5)
+                        setImgSize({ ...imgSize, lastEventScale: 0 })
+                }}
+            >
+                <PanGestureHandler
+                    maxPointers={1}
+                    onGestureEvent={e => {
+                        const { translationX, translationY } = e.nativeEvent;
+                        const x = scrollOffset.x - translationX;
+                        const y = scrollOffset.y - translationY;
+                        horizontalScrollViewNode.scrollTo({ x, y: 0, animated: true });
+                        verticalScrollViewNode.scrollTo({ x: 0, y, animated: true });
                     }}
-                />)}
+                    onHandlerStateChange={e => {
+                        if (e.nativeEvent.oldState === 4) {
+                            const { x: scrollOffsetX, y: scrollOffsetY } = scrollOffset;
+                            const { translationX, velocityX, translationY, velocityY } = e.nativeEvent;
+                            const x = scrollOffsetX - translationX - velocityX / 10;
+                            const y = scrollOffsetY - translationY - velocityY / 10;
+                            const offset = { x: 0, y: 0 };
+                            if (x > 0 && x < scrollOffset.w) offset.x = x;
+                            if (x > scrollOffset.w) offset.x = scrollOffset.w;
+                            if (y > 0 && y < scrollOffset.h) offset.y = y;
+                            if (y > scrollOffset.h) offset.y = scrollOffset.h;
+                            setScrollOffset({ ...scrollOffset, ...offset });
+                            horizontalScrollViewNode.scrollTo({ x: offset.x, y: 0, animated: true });
+                            verticalScrollViewNode.scrollTo({ x: 0, y: offset.y, animated: true });
+                        }
+                    }}
+                >
+                    <ScrollView style={styles.adverts}
+                        ref={node => setVerticalScrollViewNode(node)}
+                        onContentSizeChange={(w, h) => setScrollOffset({ ...scrollOffset, w: imgSize.width * imgSize.scale - Dimensions.get('screen').width, h: h - imgSize.height })}
+                    >
+                        <ScrollView style={styles.adverts}
+                            horizontal={true}
+                            ref={node => setHorizontalScrollViewNode(node)}
+                        >
 
-            </View>
-        </SafeAreaView>
+                            <Image
+                                style={{
+                                    width: imgSize.width * imgSize.scale,
+                                    height: imgSize.height * imgSize.scale,
+                                }}
+                                source={{ uri: imgUri, cache: true }}
+                            />
+                        </ScrollView>
+                    </ScrollView>
+                </PanGestureHandler>
+            </PinchGestureHandler>
+        </SafeAreaView >
     )
 } 

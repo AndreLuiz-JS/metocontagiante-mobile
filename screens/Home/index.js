@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert, Dimensions } from 'react-native';
+import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
