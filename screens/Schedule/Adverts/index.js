@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
+import { SafeAreaView, ScrollView, Image, Dimensions, AsyncStorage } from 'react-native';
 import { PinchGestureHandler, PanGestureHandler } from 'react-native-gesture-handler';
 
+import api from '../../../services/api';
 
 import { styles } from './styles';
 
@@ -10,16 +11,37 @@ export default function AdvertsScreen() {
     const [ horizontalScrollViewNode, setHorizontalScrollViewNode ] = useState();
     const [ verticalScrollViewNode, setVerticalScrollViewNode ] = useState();
     const [ scrollOffset, setScrollOffset ] = useState({ x: 0, y: 0 })
-    const imgUri = 'https://metocontagiante-backend.herokuapp.com/api/advert/file';
+    const [ imgUri, setImgUri ] = useState('');
 
     useEffect(() => {
-        Image.getSize(imgUri, (w, h) => {
-            const width = Dimensions.get('screen').width;
-            const height = Dimensions.get('screen').width / w * h;
-            setImgSize({ ...imgSize, width, height })
-        })
+        async function fetchData() {
+            setImgUri(await AsyncStorage.getItem('imgUrl'));
+            try {
+                const imgDate = await AsyncStorage.getItem('imgDate');
+                const response = await api.get('/advert/time');
+                const { mtime: serverImgDate } = response.data;
+                if (imgDate !== serverImgDate) {
+                    const response = await api.get('advert/file');
+                    setImgUri(response.request.responseURL);
+                    AsyncStorage.setItem('imgDate', serverImgDate);
+                    AsyncStorage.setItem('imgUrl', response.request.responseURL);
+                }
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        fetchData();
     }, [])
 
+    useEffect(() => {
+        if (imgUri && imgUri !== '')
+            Image.getSize(imgUri, (w, h) => {
+                const width = Dimensions.get('screen').width;
+                const height = Dimensions.get('screen').width / w * h;
+                setImgSize({ ...imgSize, width, height })
+            })
+    }, [ imgUri ])
 
 
     return (
@@ -75,13 +97,14 @@ export default function AdvertsScreen() {
                             ref={node => setHorizontalScrollViewNode(node)}
                         >
 
-                            <Image
+                            {(imgUri !== '') && (<Image
+                                key={imgUri}
                                 style={{
                                     width: imgSize.width * imgSize.scale,
                                     height: imgSize.height * imgSize.scale,
                                 }}
                                 source={{ uri: imgUri, cache: true }}
-                            />
+                            />)}
                         </ScrollView>
                     </ScrollView>
                 </PanGestureHandler>
