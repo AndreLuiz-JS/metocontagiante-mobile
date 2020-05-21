@@ -10,7 +10,7 @@ export default function AdvertsScreen() {
     const [ horizontalScrollViewNode, setHorizontalScrollViewNode ] = useState();
     const [ verticalScrollViewNode, setVerticalScrollViewNode ] = useState();
     const [ scrollOffset, setScrollOffset ] = useState({ x: 0, y: 0 })
-    const imgUri = 'https://www.dropbox.com/s/3ih2ns78c39s4oo/advert.jpg?dl=1';
+    const imgUri = 'https://metocontagiante-backend.herokuapp.com/api/advert/file';
 
     useEffect(() => {
         Image.getSize(imgUri, (w, h) => {
