@@ -36,7 +36,6 @@ src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJE31N2hAOlwARCOXja
 src="https://www.google.com/maps/embed/v1/directions?zoom=15&center=${lat},${long}&origin=${lat},${long}&destination=Metodista+Contagiante+-+Rua+Francisco+de+Souza+Beltrão+-+Balneario+das+Conchas,+São+Pedro+da+Aldeia+-+RJ,+Brasil&key=${apiKeyGoogleMapsEmbed}" allowfullscreen></iframe>`)
             }, (err) => {
                 setGeolocationAvailable(false);
-                if (err.code === 'E_LOCATION_UNAUTHORIZED') alert('Permissão para utilizar gps negada.\n\nPara exibir a rota completa você deve permitir o acesso a localização.');
             }, { enableHighAccuracy: true, maximumAge: 30000, timeout: 60000 });
         }
     }, [ position ])
