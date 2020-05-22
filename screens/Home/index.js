@@ -1,5 +1,6 @@
 import React from 'react';
-import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert } from 'react-native';
+import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert, AsyncStorage } from 'react-native';
+import * as FileSystem from 'expo-file-system';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
@@ -108,10 +109,24 @@ export default function HomeScreen() {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await api.get('/carousel');
-        setImages(data);
+        const response = await api.get('/carousel/lastUpdate');
+        const { lastUpdated: serverLastUpdated } = response.data;
+        const localLastUpdated = await AsyncStorage.getItem('lastUpdatedCarousel');
+        if (!localLastUpdated || localLastUpdated !== serverLastUpdated) {
+          const { data } = await api.get('/carousel');
+          const imgs = data.map(img => { return { source: img.base64 } });
+          await AsyncStorage.setItem('lastUpdatedCarousel', serverLastUpdated);
+          await FileSystem.writeAsStringAsync(FileSystem.documentDirectory + '/carouselImages.json', JSON.stringify(imgs));
+          setImages(imgs);
+        } else {
+          const carouselImages = await FileSystem.readAsStringAsync(FileSystem.documentDirectory + '/carouselImages.json');
+          if (carouselImages)
+            setImages(JSON.parse(carouselImages));
+        }
+
       } catch (err) {
         console.log(err);
+        await AsyncStorage.removeItem('carouselImages');
       }
     }
     if (netInfo.isConnected && images.length === 0) fetchData();
@@ -123,7 +138,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         {images.length === 0 && (<Image source={logo} style={styles.logo} />)}
         {images.length > 0 && (<Carousel
-          images={images.map(img => { return { source: img.base64 } })}
+          images={images}
         />)}
       </View>
       <FlatList
