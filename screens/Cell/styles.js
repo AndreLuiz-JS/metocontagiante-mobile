@@ -58,4 +58,17 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
     },
+    button: {
+        backgroundColor: colors.effect + 'dd',
+        padding: 5,
+        borderRadius: 10,
+        marginTop: 10,
+        width: '100%',
+        borderWidth: 2,
+        borderColor: colors.effect,
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: colors.background,
+    }
 })

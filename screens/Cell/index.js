@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, Image, Linking } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 
 import api from '../../services/api';
 import Loading from '../../components/Loading';
@@ -21,12 +22,15 @@ export default function CellScreen() {
         type: ''
     } ])
     const [ loading, setLoading ] = useState(true);
+    const [ urlCellStudy, setUrlCellStudy ] = useState('');
     const weekdays = [ 'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado' ];
 
 
     useEffect(() => {
         async function getcell() {
             try {
+                const cellstudy = await api.get('/cellstudy/file');
+                setUrlCellStudy(cellstudy.request.responseURL);
                 const response = await api.get('/cells');
                 const cells = response.data.map((item, index) => {
                     if (item.phone) {
@@ -45,6 +49,10 @@ export default function CellScreen() {
         getcell();
     }, [])
 
+    async function downloadPdf() {
+        WebBrowser.openBrowserAsync(`https://docs.google.com/viewer?url=${urlCellStudy}`);
+    }
+
     if (loading) return (<Loading message='carregando lista de células' />)
 
     return (
@@ -52,6 +60,9 @@ export default function CellScreen() {
             <View>
                 <Text style={styles.title}>Células</Text>
                 <Text style={styles.subTitle}>Metodista Contagiante</Text>
+                {(urlCellStudy !== '') && (<TouchableOpacity style={styles.button} onPress={() => downloadPdf()}>
+                    <Text style={styles.buttonText}>Estudo de Célula</Text>
+                </TouchableOpacity>)}
             </View>
             <View style={{ flex: 1, marginTop: 10 }}>
                 <FlatList
