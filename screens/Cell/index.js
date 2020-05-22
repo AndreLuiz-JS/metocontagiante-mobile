@@ -72,9 +72,9 @@ export default function CellScreen() {
                             <View style={styles.cellContainer}>
                                 <Text style={styles.cellName}>{item.name}</Text>
                                 <View style={styles.cellContent}>
-                                    <View style={styles.cellImage}>
-                                        {(item.image !== '') && (<Image style={styles.cellImage} source={{ uri: item.image }} alt="" />)}
-                                    </View>
+                                    {(item.image !== '') && (<View style={styles.cellImage}>
+                                        <Image style={styles.cellImage} source={{ uri: item.image }} alt="" />
+                                    </View>)}
                                     <View style={styles.cellInfoContainer}>
                                         <Text style={styles.cellInfoItem}>Líder: {item.leader}</Text>
                                         <Text style={styles.cellInfoItem}>Dia da semana: {weekdays[ item.weekday ]}</Text>
