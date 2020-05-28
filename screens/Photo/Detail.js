@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, Dimensions } from 'react-native';
+import { SafeAreaView, Text, Dimensions, Linking, TouchableOpacity } from 'react-native';
 
 import ImageViewer from 'react-native-image-zoom-viewer';
 
@@ -41,7 +41,11 @@ export default function PhotoDetailScreen({ navigation, route }) {
         <SafeAreaView style={styles.container}>
             {loading.status && (<Loading message={loading.message} />)}
             <Text style={styles.title}> {title} </Text>
-            {photoArray && (<ImageViewer backgroundColor="transparent" saveToLocalByLongPress={false} imageUrls={photoArray} onSwipeDown={() => console.log('navigation')} />)}
+            {photoArray && (<ImageViewer backgroundColor="transparent"
+                saveToLocalByLongPress={false}
+                imageUrls={photoArray}
+                onSwipeDown={() => console.log('navigation')}
+            />)}
         </SafeAreaView>
     )
 }
