@@ -21,8 +21,10 @@ export default function DevotionalScreen() {
     const [ devotionalContentArray, setDevotionalContentArray ] = useState([ devotionalContent ]);
     const [ showVerses, setShowVerses ] = useState(true)
     const [ loading, setLoading ] = useState(true);
+    const [ devotionalViewRef, setDevotionalViewRef ] = useState();
 
     async function getDevotionalData(devotional) {
+        setLoading(true);
         try {
             const { id, title } = devotional;
             const content = devotional.content ? devotional.content.split(/(?:\r\n|\r|\n)/g) : false;
@@ -30,9 +32,14 @@ export default function DevotionalScreen() {
             const date = normalizeDate(devotional.available_at);
             const { verses, verseContent } = await getVerses();
             setDevotionalContent({ id, title, verses, content, verseContent, date, hasDevotional });
+            if (devotionalViewRef) devotionalViewRef.scrollTo({ x: 0, y: 0, animated: false });
             setLoading(false);
             async function getVerses() {
-                const bibleIndexes = devotional.verses.split(';');
+                if (!devotional.verses) {
+                    setShowVerses(false);
+                    return { verses: [], verseContent: [] }
+                }
+                const bibleIndexes = devotional.verses.split(';').filter(item => (item !== '' && item));
                 const verseContent = new Array(bibleIndexes.length);
                 const verses = new Array(bibleIndexes.length);
                 for (let i = 0; i < bibleIndexes.length; i++) {
@@ -46,13 +53,12 @@ export default function DevotionalScreen() {
                     if (verseInit === verseEnd) { verses[ i ] = `${book[ 0 ]} ${chapter[ 0 ]} : ${verseInit}` }
                     else { verses[ i ] = `${book[ 0 ]} ${chapter[ 0 ]} : ${verseRange}` }
                 }
+                setShowVerses(true);
                 return { verses, verseContent }
             }
         } catch (err) {
             console.log(err)
-            setShowVerses(false);
             setLoading(false);
-            return { verses: [], verseContent: [] }
         }
     }
 
@@ -120,33 +126,30 @@ export default function DevotionalScreen() {
                 ))}
             </Picker>
             <Text style={styles.publishedAt}>Publicado {devotionalContent.date}</Text>
-            <ScrollView style={styles.scroll}>
-                <View style={styles.verseContainer}>
-                    {showVerses && (
-                        <>
-                            <Text style={styles.verseTitle} key={devotionalContent.date}>Versículos base: </Text>
-                            {devotionalContent.verses.map((item, index) =>
-                                (<Fragment key={Math.random() * Math.pow(5, index)}>
-                                    <Text style={styles.verse} key={Math.random() * Math.pow(10, index)}>{item}</Text>
-                                    {
-                                        devotionalContent.verseContent[ index ].map((paragraph, paragraphIndex) => (
-                                            <Text style={styles.paragraph} key={Math.random() * Math.pow(10, paragraphIndex)} >
-                                                {'\t\t'}
-                                                {paragraph.map((verse, verseIndex) => (
-                                                    <Text style={styles.verseText} key={Math.random() * Math.pow(10, verseIndex)} > {verse.verseText}</Text>
-                                                ))}
-                                            </Text>
-                                        ))
-                                    }
-                                </Fragment>)
-                            )}
-                        </>)}
-                </View>
+            <ScrollView style={styles.scroll}
+                ref={node => setDevotionalViewRef(node)}>
+                {showVerses && (<View style={styles.verseContainer}>
+                    <Text style={styles.verseTitle} key={devotionalContent.date}>Versículos base: </Text>
+                    {devotionalContent.verses.map((item, index) =>
+                        (<Fragment key={Math.random() * Math.pow(5, index)}>
+                            <Text style={styles.verse} key={Math.random() * Math.pow(10, index)}>{item}</Text>
+                            {
+                                devotionalContent.verseContent[ index ].map((paragraph, paragraphIndex) => (
+                                    <Text style={styles.paragraph} key={Math.random() * Math.pow(10, paragraphIndex)} >
+                                        {'\t\t'}
+                                        {paragraph.map((verse, verseIndex) => (
+                                            <Text style={styles.verseText} key={Math.random() * Math.pow(10, verseIndex)} > {verse.verseText}</Text>
+                                        ))}
+                                    </Text>
+                                ))
+                            }
+                        </Fragment>)
+                    )}
+                </View>)}
                 <View style={styles.devotionalContainer}>
                     {devotionalContent.content.map((item, index) => (
                         <Text key={Math.random() * Math.pow(10, index)} style={(item.startsWith('#')) ? styles.title : styles.devotionalContent}>{(item.startsWith('#')) ? '' : '\t\t\t\t\t\t\t\t'}{item}</Text>
                     ))}
-
                 </View>
             </ScrollView>
         </SafeAreaView >
