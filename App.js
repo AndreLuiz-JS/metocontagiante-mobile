@@ -34,7 +34,6 @@ const Stack = createStackNavigator();
 export default function App(props) {
   const [ isLoadingComplete, setLoadingComplete ] = React.useState(false);
   const [ initialNavigationState, setInitialNavigationState ] = React.useState();
-  const [ expoPushToken, setExpoPushToken ] = React.useState('');
   const [ notificationState, setNotificationState ] = React.useState({});
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
@@ -76,12 +75,12 @@ export default function App(props) {
         if (finalStatus !== 'granted') {
           return;
         }
-        const token = await Notifications.getExpoPushTokenAsync()
-        setExpoPushToken(token);
         try {
-          if (!localStorageToken || localStorageToken !== token) {
+          const token = await Notifications.getExpoPushTokenAsync();
+          if (localStorageToken === null || localStorageToken !== token) {
             await api.post('/registerExpoPushToken', { token });
             await AsyncStorage.setItem('expoPushToken', token);
+
           }
         } catch (err) {
           console.log(err || err.response.data);
