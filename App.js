@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
+import { Platform, StatusBar, StyleSheet, View, Vibration, AsyncStorage } from 'react-native';
+import { SplashScreen, Notifications, Linking } from 'expo';
+import * as Permissions from 'expo-permissions';
 import * as Font from 'expo-font';
+import Constants from 'expo-constants';
 import { Ionicons, Feather, FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import useLinking from './navigation/useLinking';
+import api from './services/api';
 
 import HomeScreen from './screens/Home';
 import BibleScreen from './screens/Bible';
@@ -31,6 +34,8 @@ const Stack = createStackNavigator();
 export default function App(props) {
   const [ isLoadingComplete, setLoadingComplete ] = React.useState(false);
   const [ initialNavigationState, setInitialNavigationState ] = React.useState();
+  const [ expoPushToken, setExpoPushToken ] = React.useState('');
+  const [ notificationState, setNotificationState ] = React.useState({});
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -59,8 +64,50 @@ export default function App(props) {
       }
     }
 
+    async function registerForPushNotificationsAsync() {
+      const localStorageToken = await AsyncStorage.getItem('expoPushToken');
+      if (Constants.isDevice) {
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+          const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+          return;
+        }
+        const token = await Notifications.getExpoPushTokenAsync()
+        setExpoPushToken(token);
+        try {
+          if (!localStorageToken || localStorageToken !== token) {
+            await api.post('/registerExpoPushToken', { token });
+            await AsyncStorage.setItem('expoPushToken', token);
+          }
+        } catch (err) {
+          console.log(err || err.response.data);
+          await AsyncStorage.removeItem('expoPushToken');
+        }
+      }
+
+      if (Platform.OS === 'android') {
+        Notifications.createChannelAndroidAsync('default', {
+          name: 'default',
+          sound: true,
+          priority: 'max',
+          vibrate: [ 0, 250, 250, 250 ],
+        });
+      }
+    };
+
     loadResourcesAndDataAsync();
+    registerForPushNotificationsAsync();
+    Notifications.addListener(notification => setNotificationState(notification));
   }, []);
+
+  React.useEffect(() => {
+    if (notificationState.origin === 'received') Vibration.vibrate();
+    if (notificationState.origin === 'selected') Linking.openURL(Linking.makeUrl('/') + notificationState.data.page);
+  }, [ isLoadingComplete, props.skipLoadingScreen, notificationState ])
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
