@@ -11,6 +11,8 @@ web-build/
 web-report/
 .vscode/*
 secret.js
+google-services.json
+.gitignore
 
 # macOS
 .DS_Store

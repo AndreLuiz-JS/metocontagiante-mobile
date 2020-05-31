@@ -83,7 +83,6 @@ export default function App(props) {
 
           }
         } catch (err) {
-          console.log(err || err.response.data);
           await AsyncStorage.removeItem('expoPushToken');
         }
       }
