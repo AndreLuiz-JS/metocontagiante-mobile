@@ -88,11 +88,12 @@ export default function App(props) {
       }
 
       if (Platform.OS === 'android') {
-        Notifications.createChannelAndroidAsync('default', {
-          name: 'default',
+        Notifications.createChannelAndroidAsync('Devotional', {
+          name: 'devocional',
+          description: 'Notificação de novos devocionais lançados no app',
           sound: true,
           priority: 'max',
-          vibrate: [ 0, 250, 250, 250 ],
+          vibrate: [ 0, 250, 0, 250 ],
         });
       }
     };
