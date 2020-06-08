@@ -2,6 +2,8 @@
 
 App da Metodista Contagiante em São Pedro da Aldeia/RJ
 
+[Android](https://play.google.com/store/apps/details?id=br.com.andresouzadev.metocontagiante)
+
 ![screenshot](screenshot.gif)
 
 Recursos:
@@ -16,5 +18,7 @@ Recursos:
 - Contato via whatsapp
 - Pedido de oração
 - Mapa de localização
+
+[Versão Web](https://github.com/AndreLuiz-JS/metocontagiante)
 
 ![dev-logo](dev-logo.jpg)
