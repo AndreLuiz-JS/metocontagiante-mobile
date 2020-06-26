@@ -1,5 +1,5 @@
-import React from 'react';
-import { ImageBackground, Image, Text, TouchableOpacity, View, Linking, FlatList, Alert, AsyncStorage } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Animated, ImageBackground, Image, Text, TouchableOpacity, TouchableHighlight, View, Linking, FlatList, Alert, AsyncStorage, Modal } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -20,6 +20,8 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const netInfo = useNetInfo();
   const [ images, setImages ] = React.useState([]);
+  const [ showArrow, setShowArrow ] = useState({ top: false, bottom: true, maxOffsetY: 0.1, calculate: true })
+  const moveAnimation = useRef(new Animated.Value(0.1)).current;
 
   const icons = [ {
     route: 'Bible',
@@ -104,9 +106,17 @@ export default function HomeScreen() {
     iconType: 'Feather',
     name: 'Como Chegar',
     onLine: true
-  }, ]
+  },
+  {
+    route: 'CompanyServices',
+    iconName: 'briefcase',
+    iconType: 'Feather',
+    name: 'Empresas e Serviços',
+    onLine: false
+  },
+  ]
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       try {
         const response = await api.get('/carousel/lastUpdate');
@@ -133,6 +143,25 @@ export default function HomeScreen() {
 
   }, [ netInfo.isConnected ])
 
+  useEffect(() => {
+    const moveUp = () => {
+      Animated.timing(moveAnimation, {
+        toValue: 5,
+        duration: 500
+      }).start();
+      setTimeout(moveDown, 700)
+    };
+
+    const moveDown = () => {
+      Animated.timing(moveAnimation, {
+        toValue: 0,
+        duration: 500
+      }).start();
+      setTimeout(moveUp, 700)
+    };
+    moveUp();
+  }, [])
+
   return (
     <ImageBackground source={background} style={styles.container}>
       <View style={styles.header}>
@@ -141,23 +170,48 @@ export default function HomeScreen() {
           images={images}
         />)}
       </View>
-      <FlatList
-        contentContainerStyle={styles.icons}
-        numColumns={3}
-        data={icons}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            style={styles.ico}
-            onPress={() => handlePressPageIcon(item)}
-          >
-            {item.iconType === 'Feather' && (<Feather name={item.iconName} size={40} color={colors.tintColor} />)}
-            {item.iconType === 'FontAwesome5' && (<FontAwesome5 name={item.iconName} size={40} color={colors.tintColor} />)}
-            <Text style={styles.text}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))}
-      />
+      <View style={{ flex: 1 }}>
+        <FlatList
+          contentContainerStyle={styles.icons}
+          numColumns={3}
+          data={icons}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              style={styles.ico}
+              onPress={() => handlePressPageIcon(item)}
+            >
+              {item.iconType === 'Feather' && (<Feather name={item.iconName} size={40} color={colors.tintColor} />)}
+              {item.iconType === 'FontAwesome5' && (<FontAwesome5 name={item.iconName} size={40} color={colors.tintColor} />)}
+              <Text style={styles.text}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => (item + (Math.random() * Math.pow(10, index)))}
+          onScroll={(e) => {
+            const { y: offsetY } = e.nativeEvent.contentOffset;
+            //   const showArrowTop = (offsetY > 0);
+            const showArrowTop = false;
+            const showArrowBottom = (Math.round(showArrow.maxOffsetY) !== Math.round(offsetY))
+            if (showArrow.bottom)
+              setShowArrow({ ...showArrow, top: showArrowTop, bottom: showArrowBottom })
+          }}
+          onEndReached={(e) => {
+            if (showArrow.calculate) {
+              const { distanceFromEnd } = e;
+              const maxOffsetY = Math.max(distanceFromEnd, showArrow.maxOffsetY)
+              setShowArrow({ ...showArrow, maxOffsetY, calculate: false })
+            }
+          }
+          }
+        />
+        {showArrow.top && <Animated.Text style={[ styles.top_arrow, { transform: [ { translateY: moveAnimation } ] } ]}>
+          <FontAwesome5 name="sort-up" size={40} />
+        </Animated.Text>}
 
+        {showArrow.bottom && <Animated.Text style={[ styles.bottom_arrow, { transform: [ { translateY: moveAnimation } ] } ]}>
+          <FontAwesome5 name="sort-down" size={40} />
+        </Animated.Text>}
+
+      </View>
     </ImageBackground >
   );
 

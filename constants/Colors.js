@@ -8,7 +8,7 @@ export default {
   errorBackground: 'red',
   errorText: '#fff',
   warningBackground: '#EAEB5E',
-  warningText: '#666804',
+  warningText: '#eef36add',
   noticeBackground: tintColor,
   noticeText: '#e7ecef',
   primary: '#e7ecef',

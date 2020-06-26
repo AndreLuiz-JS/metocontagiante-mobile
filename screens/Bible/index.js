@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, FlatList, Text, TouchableOpacity, View, AsyncStorage, BackHandler } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, FlatList, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Loading from '../../components/Loading';
 import bibleData from '../../json/bible.json';

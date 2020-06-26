@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Contagiante",
 		"slug": "metocontagiante-mobile",
-		"platforms": ["ios", "android"],
+		"platforms": ["ios", "android", "web"],
 		"version": "1.1.5",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",

@@ -1,0 +1,23 @@
+[
+	{
+		"name": "Wilson",
+		"type": "Móveis Planejados",
+		"company": "JWE Marcenaria",
+		"phone": "(22) 99999-9999",
+		"mail": "nareba@gmail.com",
+		"address": "Av. Joaquim Nogueira, 375 - São Cristóvão, Cabo Frio - RJ, 28909-490",
+		"info": "Móveis planejados de acordo com o seu espaço",
+		"iconType": "FontAwesome5",
+		"iconName": "couch"
+	},
+	{
+		"name": "André Luiz",
+		"type": "Informática e Tecnologia",
+		"company": "André Souza Desenvolvimento de Softwares",
+		"phone": "(22) 99938-8195",
+		"mail": "oxxxandreluizxxxo@gmail.com",
+		"info": "Desenvolvimento de sites e aplicativos Android",
+		"iconType": "FontAwesome5",
+		"iconName": "laptop"
+	}
+]

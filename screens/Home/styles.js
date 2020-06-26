@@ -57,5 +57,21 @@ export const styles = StyleSheet.create({
     },
     link: {
         color: colors.effect,
-    }
+    },
+    bottom_arrow: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        color: colors.text + 'cc',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 7,
+    },
 });

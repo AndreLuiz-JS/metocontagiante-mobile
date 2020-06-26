@@ -12,6 +12,7 @@ web-report/
 .vscode/*
 secret.js
 google-services.json
+secret/
 .gitignore
 
 # macOS

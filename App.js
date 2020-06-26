@@ -26,6 +26,8 @@ import SocialMediaScreen from './screens/SocialMedia';
 import CellScreen from './screens/Cell';
 import ShepherdsScreen from './screens/Shepherds';
 import AboutUsScreen from './screens/AboutUs';
+import CompanyServicesScreen from './screens/CompanyServices';
+import CompanyDetailScreen from './screens/CompanyServices/CompanyDetail';
 
 import colors from './constants/Colors';
 
@@ -131,6 +133,8 @@ export default function App(props) {
             <Stack.Screen name="Cell" component={CellScreen} />
             <Stack.Screen name="Shepherds" component={ShepherdsScreen} />
             <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+            <Stack.Screen name="CompanyServices" component={CompanyServicesScreen} />
+            <Stack.Screen name="CompanyDetail" component={CompanyDetailScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, Image, Linking } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-
+import * as Location from 'expo-location';
 import api from '../../services/api';
 import Loading from '../../components/Loading';
 
@@ -25,13 +25,13 @@ export default function CellScreen() {
     const [ urlCellStudy, setUrlCellStudy ] = useState('');
     const weekdays = [ 'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado' ];
 
-
     useEffect(() => {
         async function getcell() {
             try {
                 const cellstudy = await api.get('/cellstudy/file');
                 setUrlCellStudy(cellstudy.request.responseURL);
-                const response = await api.get('/cells');
+                const position = await getLocation();
+                const response = position ? await api.get(`/cells/${position}`) : await api.get('/cells');
                 const cells = response.data.map((item, index) => {
                     if (item.phone) {
                         const whatsapp = 'whatsapp://send?phone=' + item.phone.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, '').replace(/\)/g, '');
@@ -43,11 +43,25 @@ export default function CellScreen() {
                 setLoading(false);
             } catch (err) {
                 console.log(err)
-                setLoading(false);
             }
         }
         getcell();
     }, [])
+
+    async function getLocation() {
+        const { status, mocked } = await Location.requestPermissionsAsync();
+        if (status === 'granted' && !mocked) {
+            try {
+                const location = await Location.getCurrentPositionAsync({ maximumAge: 2 * 60 * 1000 });
+                const { latitude, longitude } = location.coords;
+                return (`${latitude},${longitude}`);
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            return null;
+        }
+    }
 
     async function downloadPdf() {
         WebBrowser.openBrowserAsync(`https://docs.google.com/viewer?url=${urlCellStudy}`);
